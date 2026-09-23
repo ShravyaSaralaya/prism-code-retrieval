@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Large binary caches -- regenerate by running the scripts, don't commit
+embed_cache/
+p1_index_bge/
+p1_index_e5/
+bge_m3_training_checkpoints/
+finetuned-bge-m3-v1/
+*.npy
+
+# Keep the official results JSON (small, required for submission) -- do NOT ignore results/

@@ -1,0 +1,8 @@
+torch
+sentence-transformers
+mteb
+datasets
+numpy
+
+# Only needed for experiments/out_of_scope_finetuning/ (not part of the final pipeline)
+# peft

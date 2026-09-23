@@ -1,0 +1,30 @@
+{
+  "fused_no_rerank": {
+    "recall_at_1": 0.11394422310756971,
+    "recall_at_3": 0.17317397078353253,
+    "recall_at_5": 0.20185922974767595,
+    "recall_at_10": 0.25205843293492697,
+    "recall_at_20": 0.3041168658698539,
+    "recall_at_50": 0.3944223107569721,
+    "recall_at_100": 0.4743691899070385,
+    "ndcg_at_10": 0.17608118548989296,
+    "mrr_at_10": 0.15268376230527628
+  },
+  "fused_plus_reranked": {
+    "recall_at_1": 0.026826029216467463,
+    "recall_at_3": 0.04966799468791501,
+    "recall_at_5": 0.06852589641434263,
+    "recall_at_10": 0.10650730411686588,
+    "recall_at_20": 0.1707835325365206,
+    "recall_at_50": 0.31527224435590967,
+    "recall_at_100": 0.4743691899070385,
+    "ndcg_at_10": 0.05984147527588045,
+    "mrr_at_10": 0.045858260081367654
+  },
+  "cross_encoder_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "timing_seconds": {
+    "cross_encoder_scoring_total": 2043.661734342575,
+    "cross_encoder_ms_per_query": 542.8052415252523,
+    "pairs_scored": 376500
+  }
+}
