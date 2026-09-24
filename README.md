@@ -32,6 +32,11 @@ incremental index — see [`src/incremental_index.py`](src/incremental_index.py)
 and the demo below. Re-indexing a small commit (23 changed docs out of 8,765)
 is **~200x faster** than a full rebuild.
 
+**Bonus (evolutionary retrieval):** extends the same index to keep full
+version history per document, with a dedup mechanism so near-duplicate
+versions don't crowd out genuinely different results — see
+[`src/bonus/`](src/bonus/).
+
 ## Repository structure
 
 ```
@@ -39,6 +44,10 @@ src/                    Final submission pipeline
   official_fusion_submission.py   Generates the official MTEB submission JSON (P0)
   incremental_index.py            Reusable incremental embedding index (P1)
   p1_demo.py                      P1 speedup demonstration
+  live_query_demo.py              Answer any single query live -- see below
+  bonus/
+    versioned_index.py                    Version-history-aware index (Bonus)
+    bonus_evolutionary_retrieval_demo.py   Bonus demonstration
 
 results/
   OFFICIAL_fusion_submission_results.json   The submitted evaluation JSON
@@ -49,6 +58,45 @@ experiments/            Full experiment log, in chronological order
   out_of_scope_finetuning/   Fine-tuning attempt, kept for transparency
                               (confirmed out of scope by organizers)
 ```
+
+## Answering a query (the main way to interact with this solution)
+
+```bash
+cd src
+python live_query_demo.py --query "your query here"
+```
+
+First run builds a persisted index over the full corpus (~4 minutes, one-time,
+uses GPU if available). Every run after that loads instantly and answers your
+query in real time — prints the top-10 ranked code snippets with previews,
+scores, and measured latency.
+
+Run with no `--query` flag to see 3 built-in example queries answered
+end-to-end. Add `--device cuda` to use GPU instead of the CPU default.
+
+**Measured latency:** ~325ms per query on CPU (RTX 3050 laptop, single query,
+no batching), after a one-time warm-up cost. Query-time retrieval runs
+correctly on CPU alone — GPU is only used to speed up the one-time index
+build.
+
+## Bonus: Evolutionary Retrieval
+
+```bash
+cd src/bonus
+python bonus_evolutionary_retrieval_demo.py
+```
+
+Demonstrates retrieval across multiple historical versions of the same
+codebase, and the mechanism that keeps near-duplicate versions from crowding
+out genuinely different relevant files (the exact challenge named in the
+problem statement). Proof-of-concept on a small synthetic multi-version
+corpus (8 files x 4 simulated commits) — there's no official Bonus
+benchmark, unlike P0.
+
+**Result:** without deduplication, near-duplicate versions of the same file
+filled 6 of the top-10 slots (only 4/10 unique files represented). With our
+fix — grouping by logical file and keeping the best-scoring version per
+group — all 8/10 distinct files are represented.
 
 ## Setup
 
