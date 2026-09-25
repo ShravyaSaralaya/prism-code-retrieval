@@ -1,8 +1,12 @@
-torch
 sentence-transformers
 mteb
 datasets
 numpy
 
-# Only needed for experiments/out_of_scope_finetuning/ (not part of the final pipeline)
-# peft
+# IMPORTANT: install torch separately BEFORE this file, with CUDA support if
+# you have an NVIDIA GPU. Plain "pip install torch" installs CPU-only, which
+# makes index building far slower. See README for the exact command.
+#
+# If you don't have a GPU, skip the torch step below and just run:
+#   pip install torch sentence-transformers mteb datasets numpy
+# (index building will be slower on CPU, but it will still work)

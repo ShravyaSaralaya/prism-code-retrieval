@@ -105,6 +105,12 @@ python -m venv venv
 # Windows: venv\Scripts\Activate.ps1
 # macOS/Linux: source venv/bin/activate
 
+# Install torch FIRST. If you have an NVIDIA GPU, get the CUDA-enabled build
+# from https://pytorch.org/get-started/locally/ (select your CUDA version) --
+# e.g.: pip install torch --index-url https://download.pytorch.org/whl/cu121
+# Without this, plain "pip install torch" installs CPU-only, which works but
+# makes the one-time index build much slower.
+
 pip install -r requirements.txt
 ```
 
